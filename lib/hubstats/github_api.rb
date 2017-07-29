@@ -59,10 +59,10 @@ module Hubstats
       if Hubstats.config.github_config.has_key?("repo_list")
         repos = []
         Hubstats.config.github_config["repo_list"].each do |repo|
-          repos << client.repository(repo)
+          repos << client({:auto_paginate => true}).repository(repo)
         end
       elsif Hubstats.config.github_config.has_key?("org_name")
-        repos = client.organization_repositories(Hubstats.config.github_config["org_name"])
+        repos = client({:auto_paginate => true}).organization_repositories(Hubstats.config.github_config["org_name"])
       end
       repos
     end
@@ -251,7 +251,7 @@ module Hubstats
     #
     # Returns - the issue
     def self.get_labels_for_pull(repo_name, pull_request_number)
-      issue = client.issue(repo_name, pull_request_number)
+      issue = client({:auto_paginate: true}).issue(repo_name, pull_request_number)
       issue[:labels]
     end
 
