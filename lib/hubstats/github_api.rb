@@ -251,7 +251,7 @@ module Hubstats
     #
     # Returns - the issue
     def self.get_labels_for_pull(repo_name, pull_request_number)
-      issue = client({:auto_paginate: true}).issue(repo_name, pull_request_number)
+      issue = client({:auto_paginate => true}).issue(repo_name, pull_request_number)
       issue[:labels]
     end
 
